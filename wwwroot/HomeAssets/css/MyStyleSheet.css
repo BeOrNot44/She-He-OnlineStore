@@ -1,0 +1,110 @@
+﻿@media (min-width: 1025px) {
+    .h-custom {
+        height: 100vh !important;
+    }
+}
+
+.circle-rectangle-container {
+    display: flex;
+    align-items: center;
+}
+
+.circle-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rectangle {
+    margin-right: -10px;
+}
+
+.custom-table {
+    background-color: #FFFCF8 !important;
+    /* Change this to your desired background color */
+}
+
+    /* Change the table hover row background color */
+    .custom-table .table-hover tbody tr:hover {
+        background-color: #FFFCF1 !important; /* Change this to your desired hover row color */
+    }
+
+<style >
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-dropdown {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 3px;
+}
+
+.status-option {
+    display: block;
+    padding: 8px 10px;
+    text-decoration: none;
+    color: #000;
+    transition: background-color 0.2s;
+}
+
+    .status-option:hover {
+        background-color: #ddd;
+    }
+
+.green-bg {
+    background-color: green;
+    color: white;
+}
+
+.white-bg {
+    background-color: white;
+}
+
+.custom-dropdown.open .dropdown-menu {
+    display: block;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-in-cardImg {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+#baseImgId {
+    opacity: 0; /* Start with opacity 0 to hide the image */
+    transition: opacity 1s ease-in-out; /* Define the transition effect */
+}
+.resize-image {
+    display: block;
+    margin: 10px auto;
+}

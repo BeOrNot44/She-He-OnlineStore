@@ -1,0 +1,237 @@
+﻿@inject IHttpContextAccessor context1;
+@model IEnumerable<She___He_Store.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<link href="c:\shw & he 2 - copy\she & he store\wwwroot\homeassets\css\mystylesheet.css" rel="stylesheet" />
+
+
+
+
+
+<section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-4">
+
+                        <div class="row">
+
+                            <div class="col-lg-7">
+                                <h5 class="mb-3">
+                                    <a asp-action="Menu" asp-controller="Home" class="text-body">
+                                        <i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping
+                                    </a>
+                                </h5>
+                                <hr>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div>
+                                        <p class="mb-1">Shopping cart</p>
+                                        <p class="mb-0">Items you have in your cart</p>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">
+                                            @{
+                                                if (User?.Identity?.IsAuthenticated ?? false)
+                                                {
+                                                    <a asp-action="ShowHistory" asp-controller="OrderDetails" class="nav-item nav-link">Show History</a>
+                                                }
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                                @{
+                                    decimal? totalAmount = 0; // total amount of all orders
+                                }
+
+                                @foreach (var item in Model)
+                                {
+                                    if (item.CustomerId == @ViewBag.id_customer && item.Status == "OnCart")
+                                    {
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div>
+                                                            <img src="@Url.Content("~/HomeAssets/img/" + item.Product.ImagePath)" asp-append-version="true" width="100" height="100" style="border-radius: 15% !important;" />
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <h5>@item.Product.Name</h5>
+                                                            <p class="small mb-0">@item.Product.Description</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div style="width: 50px;">
+                                                            <h5 class="fw-normal mb-0">@item.Quantity</h5>
+                                                        </div>
+                                                        <div style="width: 80px;">
+                                                            <h5 class="mb-0">$@item.TotalAmount</h5>
+                                                        </div>
+                                                        <form asp-action="Delete" asp-controller="OrderDetails" method="post" style="color: #cecece;">
+                                                            <input type="hidden" name="id" value="@item.Id" />
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        totalAmount += item.TotalAmount;
+                                    }
+                                }
+                            </div>
+                            <div class="col-lg-5">
+                                    <div class="card bg-primary text-white rounded-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <h5 class="mb-0">Card details</h5>
+                                            <img class="rounded-circle me-lg-2" src="/HomeAssets/img/@ViewBag.CustomerImg" alt="" style="width: 50px; height: 50px;">
+                                        </div>
+
+                                            <p class="small mb-">Card type</p>
+                                            <a href="#!" type="submit" class="text-white">
+                                                <i class="fab fa-cc-mastercard fa-2x me-2"></i>
+                                            </a>
+                                            <a href="#!" type="submit" class="text-white">
+                                                <i class="fab fa-cc-visa fa-2x me-2"></i>
+                                            </a>
+                                            <a href="#!" type="submit" class="text-white">
+                                                <i class="fab fa-cc-amex fa-2x me-2"></i>
+                                            </a>
+                                            <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a>
+
+                                        <form class="mt-4">
+                                            <div class="form-outline form-white mb-4">
+                                                <input type="text" id="typeText" class="form-control form-control-lg" size="19"
+                                                       placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
+                                                <label class="form-label" for="typeText">Card Number</label>
+                                            </div>
+
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="form-outline form-white">
+                                                        <input type="text" id="typeExp" class="form-control form-control-lg"
+                                                               placeholder="MM/YY" size="5" minlength="5" maxlength="5" />
+                                                        <label class="form-label" for="typeExp">Expiration</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-outline form-white">
+                                                        <input type="password" id="typeCvv" class="form-control form-control-lg"
+                                                               placeholder="&#9679;&#9679;&#9679;" size="3" minlength="3" maxlength="3" />
+                                                        <label class="form-label" for="typeCvv">Cvv</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                            <hr class="my-4">
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Total</p>
+                                            <p class="mb-2">$@totalAmount</p>
+                                            </div>
+
+                                        <button id="checkoutButton" type="button" class="btn btn-info btn-block btn-lg">
+                                            <div class="d-flex justify-content-between">
+                                                <span>$@totalAmount </span>
+                                                <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                            </div>
+                                        </button>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@latest"></script>
+<script>
+
+    // Handle the button click event
+    $("#checkoutButton").click(function () {
+        var bankcards = @Html.Raw(Json.Serialize(ViewBag.Bankcards));
+
+        // Your code to compare card data and perform actions
+        var enteredCardNumber = $("#typeText").val();
+        var enteredExpiration = $("#typeExp").val();
+        var enteredCvv = $("#typeCvv").val();
+        var matchFound = false;
+        var balance = 0;
+        var cardId = 0;
+
+
+        for (var i = 0; i < bankcards.length; i++) {
+            var bankcard = bankcards[i];
+            var bankcardNumber = bankcard.cardNumber;
+            var bankcardExpiration = bankcard.expirationDate;
+            var bankcardCvv = bankcard.cvv;
+
+            if (
+                enteredCardNumber == bankcardNumber &&
+                enteredExpiration == bankcardExpiration &&
+                enteredCvv == bankcardCvv
+            ) {
+                matchFound = true;
+                balance = bankcard.balance;
+                cardId = bankcard.id;
+                break;
+            }
+        }
+
+        if (matchFound) {
+            if (balance - @totalAmount >= 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("ProcessPayment", "OrderDetails")",
+                    data: {
+                        totalAmount: '@totalAmount',
+                        cardId: cardId,
+                    },
+                    success: function (result) {
+                        Swal.fire({
+                            title: "Payment successful!",
+                            text: "Please check your email for further details.",
+                            icon: "success"
+                        });
+                        window.location.href = '/Home/Index';
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Payment failed: " + error.responseText,
+                        });
+                    }
+                });
+            }
+            else{
+                Swal.fire({
+                    title: "Oops...",
+                    text: "You need more money..",
+                    icon: "question"
+                });
+            }
+        } else {
+            Swal.fire({
+                title: "Oops...",
+                text: "Bank Card not found..",
+                icon: "question"
+            });
+        }
+    });
+</script>

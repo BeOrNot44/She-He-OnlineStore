@@ -1,0 +1,71 @@
+﻿@model IEnumerable<She___He_Store.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="table-responsive">
+                    <table class="table">
+                        <a asp-action="Create"><button class="btn btn-danger w-90 m-2" type="button">Creat New</button></a>
+
+                        <thead>
+                            <tr>
+                                <th class="text-center align-middle">Image</th>
+                                <th class="text-center align-middle">Name</th>
+                                <th class="text-center align-middle">Price</th>
+                                <th class="text-center align-middle">Sale</th>
+                                <th class="text-center align-middle">In Stock</th>
+                                <th class="text-center align-middle">Category</th>
+                                <th >Description</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center align-middle">
+                                        <img src=@Url.Content("~/HomeAssets/img/" + item.ImagePath) asp-append-version="true" width="70" height="70" style="border-radius: 15% !important;" />
+                                    </td>
+
+                                    <td class="text-center align-middle">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        @Html.DisplayFor(modelItem => item.Price)
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        @Html.DisplayFor(modelItem => item.SalePrice)
+                                    </td>
+
+                                    <td class="text-center align-middle">
+                                        @Html.DisplayFor(modelItem => item.StockQuantity)
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        @item.Category?.CategoryName
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                                            <form asp-action="Delete" asp-controller="Products"  method="post" class="btn btn-outline-primary">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" style="background: none; border: none">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

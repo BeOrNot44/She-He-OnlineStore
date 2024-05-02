@@ -1,0 +1,124 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/LoginAndRegisterAssets/fonts/material-icon/css/material-design-iconic-font.min.css">
+<!-- Main css -->
+<link rel="stylesheet" href="~/LoginAndRegisterAssets/css/style.css">
+<link href="~/homeassets/css/mystylesheet.css" rel="stylesheet" />
+
+<!-- Section: Design Block -->
+
+    <!-- Sign up form -->
+    <section class="signup">
+        <div class="containerr mt-4">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <h2 class="form-title">Sign up</h2>
+                    <form asp-action="Register" enctype="multipart/form-data" method="POST" class="register-form" id="register-form">
+                        <div class="form-group">
+                            <label for="FirstName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="FirstName" id="FirstName" placeholder="Your First Name" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                        <div class="form-group">
+                            <label for="LastName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="LastName" id="LastName" placeholder="Your Last Name" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                        <div class="form-group">
+                            <label for="UserName"><i class="zmdi zmdi-email"></i></label>
+                            <input type="email" name="UserName" id="UserName" placeholder="Your Email" />
+                    </div>
+
+                        <div class="form-group">
+                            <label for="Password"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="Password" id="Password" placeholder="Your Password" />
+                    </div>
+
+                        <div class="form-group">
+                            <label for="Address"><i class="zmdi zmdi-pin"></i></label>
+                            <input type="text" name="Address" id="Address" placeholder="Your Address" />
+                    </div>
+                        <div class="form-group">
+                            <label for="Phone"><i class="zmdi zmdi-phone"></i></label>
+                            <input type="tel" name="Phone" id="Phone" placeholder="Your Phone Number" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                        <div class="form-group">
+                            <label asp-for="ImagePath"><i class="zmdi zmdi-image"></i></label>
+                        <input asp-for="ImagePath" type="hidden" value="anonymous.png" accept="Image/*" type="hidden" />
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+                        <div class="form-group form-button ">
+                            <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                        </div>
+
+
+                    </form>
+                    @if (ViewData.ModelState.ContainsKey("UserName"))
+                    {
+                        <div class="text-danger">
+                            @Html.ValidationMessage("UserName")
+                        </div>
+                    }
+
+                </div>
+                <div class="signup-image">
+                <figure id="baseImgId"><img class="resize-image" src="~/LoginAndRegisterAssets/images/signin-image.jpg" width="400" height="300" id="LOGINimage" alt="sing up image"></figure>
+                <a asp-action="Login" asp-controller="LoginAndRegister" class="signup-image-link"><span>I am already member</span></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+<!-- JS -->
+<script> 
+    //code to resize images + 3sec interval between each image
+    const images = document.querySelectorAll('.resize-image');
+
+    const MyWidth = 400;
+    const MyHeight = 300;
+
+    images.forEach((image) => {
+        image.width = MyWidth;
+        image.height = MyHeight;
+    });
+
+    //..................................................
+
+    //code to change img every 3 sec
+    const imageSources = [
+        "../homeassets/img/tw.png",
+        "../homeassets/img/222.png"
+    ];
+
+    const imageElement = document.getElementById("LOGINimage");
+    const imageContainer = document.getElementById("baseImgId");
+
+    let currentIndex = 0;
+
+    function changeImageWithFadeIn() {
+        imageContainer.style.opacity = 0;
+
+        setTimeout(() => {
+            imageElement.src = imageSources[currentIndex];
+            currentIndex = (currentIndex + 1) % imageSources.length;
+            imageContainer.style.opacity = 1;
+        }, 1000);
+    }
+
+    changeImageWithFadeIn();
+    setInterval(changeImageWithFadeIn, 3000);
+
+
+    //......................................................................................................
+
+
+
+</script>
+<script src="~/LoginAndRegisterAssets/vendor/jquery/jquery.min.js"></script>
+<script src="~/LoginAndRegisterAssets/js/main.js"></script>

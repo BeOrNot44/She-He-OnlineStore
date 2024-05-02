@@ -1,0 +1,49 @@
+﻿@model She___He_Store.Models.Testimonial
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Testimonial</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TestimonialText)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TestimonialText)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TestimonialDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TestimonialDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Isapproved)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Isapproved)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

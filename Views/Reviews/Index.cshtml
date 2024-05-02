@@ -1,0 +1,84 @@
+﻿@model IEnumerable<She___He_Store.Models.Review>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center align-middle">
+                                    Image
+                                </th>
+
+                                <th class="text-center align-middle">
+                                    Customer
+                                </th>
+                                <th class="text-center align-middle">
+                                    Meal
+                                </th>
+                                <th class="text-center align-middle">
+                                    Rating
+                                </th>
+                                <th class="text-center align-middle">
+                                    Review
+                                </th>
+                                <th class="text-center align-middle">
+                                    Date
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center align-middle">
+                                        <img src=@Url.Content("~/HomeAssets/img/" + item.Customer?.ImagePath) asp-append-version="true" class="rounded-circle" width="100" height="100" />
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        @item.Customer?.FirstName @item.Customer?.LastName
+                                    </td>
+
+                                    <td class="text-center align-middle">
+                                        @item.Product?.Name
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        @{
+                                            decimal? rating = @item.Rating;
+                                        }
+                                        @for (int j = 0; j < rating; j++)
+                                        {
+                                            <i class="fas fa-star text-primary"></i>
+                                        }
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        @Html.DisplayFor(modelItem => item.ReviewText)
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        @Html.DisplayFor(modelItem => item.ReviewDate)
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <div class="btn-group" role="group">
+                                            <form asp-action="Delete" asp-controller="Reviews" method="post" class="btn btn-outline-primary">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" style="background: none; border: none">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

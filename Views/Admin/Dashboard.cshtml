@@ -1,0 +1,442 @@
+﻿@model Tuple<IEnumerable<JoinTables>,IEnumerable<OrderDetail>>
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- Sale & Revenue Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-line fa-3x text-primary" style="color:#fffcf8 !important"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Today Sale</p>
+                    <h6 class="mb-0">$@ViewBag.TodaySale</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-pie fa-3x text-primary" style="color:#fffcf8 !important"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Sale</p>
+                    <h6 class="mb-0">$@ViewBag.TotalSale</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-area fa-3x text-primary" style="color:#fffcf8 !important"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Customers</p>
+                    <h6 class="mb-0">@ViewBag.NumberofCustomer</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-user-edit fa-3x text-primary" style="color:#fffcf8 !important"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Testimonials</p>
+                    <h6 class="mb-0">@ViewBag.NumberofTestimonials</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sale & Revenue End -->
+<!-- Sales Chart Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4" style="color:#fffcf8 !important">Sales Last 7 days</h6>
+                <canvas id="line-chart" class="w-100"></canvas>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4" style="color:#fffcf8 !important" >Orders Number Last 7 Days</h6>
+                <canvas id="line-chart2" class="w-100"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sales Chart End -->
+<!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-secondary text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0" style="color:#fffcf8 !important">Recent Salse Reports</h6>
+            <a href="">Show All</a>
+        </div>
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-6">
+                <form action="Dashboard" method="post">
+                    <div class="row" >
+                        <div class="col">
+                            <input type="date" class="form-control" name="OrderDate" placeholder="Order Date" />
+                        </div>
+                        <div class="col">
+                            <input type="date" class="form-control" name="DeliveryDate" placeholder="Delivery Date" />
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-danger rounded-circle">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="Reort1" class="table text-start align-middle table-hover mb-0" style="background-color: transparent;">
+                <thead>
+                    <tr class="text-white">
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Delivery Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item2){
+                        <tr style="margin-bottom: 10px;">
+                            <td> @Html.DisplayFor(modelItem =>item.Customer.FirstName)</td>
+                            <td> @Html.DisplayFor(modelItem =>item.Customer.LastName)</td>
+                            <td> @Html.DisplayFor(modelItem =>item.Product.Name)</td>
+                            <td> @Html.DisplayFor(modelItem =>item.Quantity)</td>
+                            <td> $@Html.DisplayFor(modelItem =>item.TotalAmount)</td>
+                            <td> @Html.DisplayFor(modelItem =>item.OrderDate)</td>
+                            <td> @Html.DisplayFor(modelItem => item.DeliveryDate)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total Price: $@ViewBag.TotalPrice</td>
+                        <td>Total Quantity: @ViewBag.TotalQuantity</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Recent Sales End -->
+<!-- Second Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-secondary text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0" style="color:#fffcf8 !important">Product Reports</h6>
+            <a href="">Show All</a>
+        </div>
+        <div class="table-responsive">
+            <table id="Reort2" class="table text-start align-middle table-hover mb-0" style="background-color: transparent;">
+                <thead>
+                    <tr>
+                    <tr class="text-white">
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Price</th>
+                        <th scope="col">Product Sale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr style="margin-bottom: 10px;">
+                            <td>@item.Customer.FirstName @item.Customer.LastName</td>
+                            <td>@item.Category.CategoryName</td>
+                            <td>@item.Product.Name</td>
+                            <td>$@item.Product.Price</td>
+                            <td>%@item.Product.SalePrice</td>
+                            </tr>
+                    }
+                 </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    #Reort1 {
+        background-color: #191C24;
+        color: #fff; 
+    }
+
+        #Reort1 thead {
+            background-color: #000 ; /* Slightly darker shade for the header */
+        }
+
+        #Reort1 tbody tr:nth-child(odd) {
+            background-color: #191C24; /* Slightly darker shade for odd rows */
+            color: #bfbfbf; /* Lighter text color for even rows */
+        }
+
+    #Reort1 tbody tr:nth-child(even) {
+            background-color: #191C24; /* Darker color for even rows */
+        color: #bfbfbf; /* Lighter text color for even rows */
+    }
+
+        #Reort1 tbody tr.selected {
+            background-color: #4E90B7; /* A different shade for the selected row */
+        }
+
+    #Reort1_filter label {
+        color: #fff; /* Set the desired color for the search input label text */
+    }
+
+/*     .bg-secondary {
+        background-color: #ffff !important;
+    }
+ */
+    </style>
+    <style>
+    #Reort2 {
+        background-color: #191C24; /* Match the page color */
+        color: #fff; /* Light text color */
+    }
+
+        /* Set the background color for the table header */
+        #Reort2 thead {
+            background-color: #000; /* Slightly darker shade for the header */
+        }
+
+        /* Set the background color for alternating rows (zebra striping) */
+        #Reort2 tbody tr:nth-child(odd) {
+            background-color: #191C24; /* Slightly darker shade for odd rows */
+            color: #bfbfbf; /* Lighter text color for even rows */
+        }
+
+        /* Set the background color and text color for alternating rows (zebra striping) */
+        #Reort2 tbody tr:nth-child(even) {
+            background-color: #191C24; /* Darker color for even rows */
+            color: #bfbfbf; /* Lighter text color for even rows */
+        }
+        /* Set the background color for the selected row (assuming you have row selection) */
+        #Reort2 tbody tr.selected {
+            background-color: #4E90B7; /* A different shade for the selected row */
+        }
+
+    #Reort2_filter label {
+        color: #fff; /* Set the desired color for the search input label text */
+    }
+</style>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js" defer></script>
+
+<script>
+    $(document).ready(function () {
+        $('#Reort1').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#Reort2').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Extract the necessary data from the model
+    var orderDetails = @Html.Raw(Json.Serialize(Model.Item2)); // Assuming Item2 contains OrderDetail data
+
+    // Filter and process the data for the last 7 days
+    var last7DaysData = orderDetails
+        .filter(function (order) {
+            var orderDate = new Date(order.orderDate);
+            var sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            return orderDate >= sevenDaysAgo;
+        })
+        .map(function (order) {
+            return {
+                date: new Date(order.orderDate).toLocaleDateString(),
+                amount: order.totalAmount
+            };
+        });
+
+    // Aggregate data by date and calculate the total sales for each day
+    var aggregatedData = {};
+    last7DaysData.forEach(function (data) {
+        if (aggregatedData[data.date]) {
+            aggregatedData[data.date] += data.amount;
+        } else {
+            aggregatedData[data.date] = data.amount;
+        }
+    });
+
+    // Sort the dates
+    var sortedDates = Object.keys(aggregatedData).sort();
+
+    var chartData = {
+        labels: sortedDates,
+        datasets: [{
+            label: 'Sales',
+            data: sortedDates.map(function (date) { return aggregatedData[date]; }),
+            borderColor: 'black', // Set the line color to red
+            pointRadius: 4, // Customize point size
+            pointBackgroundColor: 'white', // Set point color to red
+            fill: false,
+            backgroundColor: 'White',
+            fontColor: '#6C7293', // Change the font color for this dataset
+            gridColor: 'black' // Change the grid color for this dataset
+
+        }]
+    };
+
+    var ctx = document.getElementById('line-chart').getContext('2d');
+
+    Chart.helpers.each(Chart.instances, function (instance) {
+        if (instance.chart.canvas.id === 'line-chart') {
+            instance.chart.destroy();
+        }
+    });
+
+    var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            scales: {
+                x: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+
+                    }
+                }],
+                y: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Sales Amount'
+                    }
+                }]
+            }
+        }
+    });
+ </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Extract the necessary data from the model
+    var orderDetails = @Html.Raw(Json.Serialize(Model.Item2)); // Assuming Item2 contains OrderDetail data
+
+    // Filter and process the data for the last 7 days
+    var last7DaysData = orderDetails
+        .filter(function (order) {
+            var orderDate = new Date(order.orderDate);
+            var sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            return orderDate >= sevenDaysAgo;
+        })
+        .map(function (order) {
+            return {
+                date: new Date(order.orderDate).toLocaleDateString(),
+                quantity: order.quantity
+            };
+        });
+
+    // Aggregate data by date and calculate the total quantity for each day
+    var aggregatedData = {};
+    last7DaysData.forEach(function (data) {
+        if (aggregatedData[data.date]) {
+            aggregatedData[data.date] += data.quantity;
+        } else {
+            aggregatedData[data.date] = data.quantity;
+        }
+    });
+
+    // Sort the dates
+    var sortedDates = Object.keys(aggregatedData).sort();
+
+    var chartData = {
+        labels: sortedDates,
+        datasets: [{
+            label: 'Orders',
+            data: sortedDates.map(function (date) { return aggregatedData[date]; }),
+            borderColor: 'black', // Set the line color
+            pointRadius: 4, // Customize point size
+            pointBackgroundColor: 'red', // Set point color
+            fill: false,
+            backgroundColor: 'red',
+            fontColor: '#6C7293', // Change the font color for this dataset
+            gridColor: 'black' // Change the grid color for this dataset
+        }]
+    };
+
+    var ctx2 = document.getElementById('line-chart2').getContext('2d');
+
+    Chart.helpers.each(Chart.instances, function (instance) {
+        if (instance.chart.canvas.id === 'line-chart2') {
+            instance.chart.destroy();
+        }
+    });
+
+    var lineChart2 = new Chart(ctx2, {
+        type: 'line',
+        data: chartData,
+        options: {
+            scales: {
+                x: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+                    }
+
+                }],
+                y: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Number of Orders'
+                    }
+
+                }]
+            }
+        }
+    });
+</script>

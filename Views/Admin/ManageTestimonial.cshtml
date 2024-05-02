@@ -1,0 +1,156 @@
+﻿@model IEnumerable<She___He_Store.Models.Testimonial>
+@{
+    ViewData["Title"] = "ManageTestimonial";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<link href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+
+
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="table-responsive">
+                    <table class="table">
+                        <button class="btn btn-danger w-80 m-2" type="button" onclick="location.reload();">Save Changes</button>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-danger" data-filter="all">All</button>
+                            <button type="button" class="btn btn-danger" data-filter="approved">Approved</button>
+                            <button type="button" class="btn btn-danger" data-filter="disapproved">Disapproved</button>
+                        </div>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col-md-2 p-3 text-center align-middle">Image</th>
+                                <th scope="col" class="col-md-2 p-3 text-center align-middle">Customer</th>
+                                <th scope="col" class="col-md-2 p-3 text-center align-middle">Rating</th>
+                                <th scope="col" class="text-center text-center align-middle">Testimonial</th>
+                                <th scope="col" class="col-md-2 p-3 text-center align-middle">Date</th>
+                                <th scope="col" class="text-center text-center align-middle">Approved</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < Model.Count(); i++)
+                            {
+                                var item = Model.ElementAt(i);
+
+                                <tr class="testimonial-row" data-approved="@item.Isapproved">
+                                    <td>
+                                        <img src="/HomeAssets/img/@item.Customer?.ImagePath" class="rounded-circle" width="100" height="100" alt="">
+                                    </td>
+
+                                    <td class="p-3 text-center align-middle">
+                                        @item.Customer.FirstName @item.Customer.LastName
+                                    </td>
+                                    <td class="p-3 text-center align-middle">
+                                        @{
+                                            decimal? rating = @item.Rating;
+                                        }
+                                        @for (int j = 0; j < rating; j++)
+                                        {
+                                            <i class="fas fa-star text-primary"></i>
+                                        }
+                                    </td>
+                                    <td class="p-3">
+                                        @item.TestimonialText
+                                    </td>
+                                    <td class="p-3 text-center align-middle">
+                                        @item.TestimonialDate
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-switch d-flex justify-content-center align-items-center text-danger">
+                                            <input type="checkbox" class="form-check-input chk-isapproved text-danger" id="chk_@i" data-id="@item.Id" @(item.Isapproved == 1 ? "checked" : "") />
+                                            <input type="hidden" name="IsApproved[@i]" value="@(item.Isapproved == 1 ? "1" : "0")" />
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    //Added for IsApproved
+    $(document).ready(function () {
+        $('.chk-isapproved').change(function () {
+            var id = $(this).data('id');
+            var isChecked = $(this).is(':checked') ? 1 : 0; // 1 for checked, 0 for unchecked
+            var data = {
+                id: id,
+                isApproved: isChecked
+            };
+
+            $.ajax({
+                url: '@Url.Action("UpdateIsApproved", "Admin")',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    // Handle success, if needed.
+                },
+                error: function (error) {
+                    // Handle errors, if needed.
+                }
+            });
+        });
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle filter buttons click
+        $('[data-filter]').click(function () {
+            var filterType = $(this).data('filter');
+            filterTable(filterType);
+        });
+
+        function filterTable(filterType) {
+            if (filterType === 'approved') {
+                $('.testimonial-row[data-approved="0"]').hide();
+                $('.testimonial-row[data-approved="1"]').show();
+            } else if (filterType === 'disapproved') {
+                $('.testimonial-row[data-approved="1"]').hide();
+                $('.testimonial-row[data-approved="0"]').show();
+            } else if (filterType === 'all') {
+                $('.testimonial-row').show();
+            }
+        }
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js" defer></script>
+
+<script>
+    $(document).ready(function () {
+        $('#us1').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        });
+    });
+</script>

@@ -1,0 +1,80 @@
+﻿@model She___He_Store.Models.ContactU
+@{
+    ViewData["Title"] = "ContactUs";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<!-- Contact Us Start -->
+<div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-1">
+                <img src="~/HomeAssets/img/background-site.jpg" class="img-fluid h-100 w-100 rounded-start" style="object-fit: cover; opacity: 0.7;" alt="">
+            </div>
+            <div class="col-10">
+                <div class="border-bottom border-top border-primary bg-light py-5 px-4">
+                    <div class="text-center">
+                        <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Book Us</small>
+                        <h1 class="display-5 mb-5">Where you want Our Services</h1>
+                    </div>
+                    <form asp-action="CreateContact">
+                        <div class="row g-4 form">
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="Country" class="form-control" placeholder="Country" />
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="City" class="form-control" placeholder="City" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <select asp-for="VegetarianFriendly" class="form-control">
+                                    <option selected>Vegetarian</option>
+                                    <option value="1">Vegetarian</option>
+                                    <option value="2">Non Vegetarian</option>
+                                </select>
+                                <span asp-validation-for="VegetarianFriendly" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="Email" class="form-control" placeholder="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="Phone" class="form-control" placeholder="Phone" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="DateAdded" class="form-control" placeholder="Date Added" />
+                                <span asp-validation-for="DateAdded" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea asp-for="DescriptionText" class="form-control form-control-lg" rows="3" placeholder="Description"></textarea>
+                                <span asp-validation-for="DescriptionText" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-12 text-center">
+                                <input type="submit" value="Submit" class="btn btn-primary px-5 py-3 rounded-pill" />
+                            </div>
+                        </div>
+                    </form>
+
+                    @*                         <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">Submit Now</button>
+                    </div>
+                    *@
+                </div>
+            </div>
+            <div class="col-1">
+                <img src="~/HomeAssets/img/background-site.jpg" class="img-fluid h-100 w-100 rounded-end" style="object-fit: cover; opacity: 0.7;" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Us End -->

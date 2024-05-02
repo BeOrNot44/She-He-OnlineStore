@@ -1,0 +1,272 @@
+﻿@inject IHttpContextAccessor context1;
+@model She___He_Store.Models.ContactU
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<!-- Add the Select2 CSS and JavaScript files -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+
+
+<!-- Modal Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center">
+                <div class="input-group w-75 mx-auto d-flex">
+                    <input type="search" class="form-control bg-transparent p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Search End -->
+<!-- Hero Start -->
+<div class="container-fluid bg-light py-6 my-6 mt-0">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-7 col-md-12">
+                <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-4 animated bounceInDown">Welcome to She&He</small>
+                <h1 class="display-1 mb-4 animated bounceInDown">@ViewBag.heroText</h1>
+                <a asp-controller="Home" asp-action="Menu" class="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 me-4 animated bounceInLeft">Our Menu</a>
+                <a asp-controller="Testimonials" asp-action="ShowTestimonial" class="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 animated bounceInLeft">Testimonial</a>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <img src="~/HomeAssets/img/@ViewBag.hero" class="img-fluid rounded animated zoomIn" />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero End -->
+<!-- About Satrt -->
+<div class="container-fluid py-6">
+    <div class="container">
+        <div  class="row g-5 align-items-center">
+            <div class="col-lg-5 wow bounceInUp" data-wow-delay="0.1s">
+                <img src="~/HomeAssets/img/@ViewBag.About" class="img-fluid rounded" alt="">
+            </div>
+            <div class="col-lg-7 wow bounceInUp" data-wow-delay="0.3s">
+                <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">About Us</small>
+                <h1 class="display-5 mb-4">@ViewBag.AboutText</h1>
+                <p class="mb-4">
+                    @ViewBag.AboutText2
+                </p>
+                <div class="row g-4 text-dark mb-5">
+                    <div class="col-sm-6">
+                        <i class="fas fa-share text-primary me-2"></i>Fresh and Fast food Delivery
+                    </div>
+                    <div class="col-sm-6">
+                        <i class="fas fa-share text-primary me-2"></i>24/7 Customer Support
+                    </div>
+                    <div class="col-sm-6">
+                        <i class="fas fa-share text-primary me-2"></i>Easy Customization Options
+                    </div>
+                    <div class="col-sm-6">
+                        <i class="fas fa-share text-primary me-2"></i>Delicious Deals for Delicious Meals
+                    </div>
+                </div>
+                <a asp-action="ShowTestimonial" asp-controller="Testimonials" class="nav-item btn btn-primary py-3 px-5 rounded-pill" style="color:black !important">Testimonials<i class="fas fa-arrow-right ps-2"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+<!-- Fact Start-->
+<div class="container-fluid faqt py-6">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-7">
+                <div class="row g-4">
+                    <div class="col-sm-4 wow bounceInUp" data-wow-delay="0.3s">
+                        <div class="faqt-item bg-primary rounded p-4 text-center">
+                            <i class="fas fa-users fa-4x mb-4 text-white"></i>
+                            <h1 class="display-4 fw-bold" data-toggle="counter-up">@ViewBag.NumberofCustomer</h1>
+                            <p class="text-dark text-uppercase fw-bold mb-0">Happy Customers</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow bounceInUp" data-wow-delay="0.5s">
+                        <div class="faqt-item bg-primary rounded p-4 text-center">
+                            <i class="fas fa-users-cog fa-4x mb-4 text-white"></i>
+                            <h1 class="display-4 fw-bold" data-toggle="counter-up">@ViewBag.NumberofTestimonials</h1>
+                            <p class="text-dark text-uppercase fw-bold mb-0">Honest Review</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow bounceInUp" data-wow-delay="0.7s">
+                        <div class="faqt-item bg-primary rounded p-4 text-center">
+                            <i class="fas fa-check fa-4x mb-4 text-white"></i>
+                            <h1 class="display-4 fw-bold" data-toggle="counter-up">@ViewBag.Numberoforders</h1>
+                            <p class="text-dark text-uppercase fw-bold mb-0">Order Complete</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 wow bounceInUp" data-wow-delay="0.1s">
+                <div class="video">
+                    <button type="button" class="btn btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Video -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 16:9 aspect ratio -->
+                <div class="ratio ratio-16x9">
+                    @Html.Raw(ViewBag.Video)
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fact End -->
+<!-- Contact Us Start -->
+<div class="container-fluid contact py-6 wow bounceInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-1">
+                <img src="~/HomeAssets/img/background-site.jpg" class="img-fluid h-100 w-100 rounded-start" style="object-fit: cover; opacity: 0.7;" alt="">
+            </div>
+            <div class="col-10">
+                <div class="border-bottom border-top border-primary bg-light py-5 px-4">
+                    <div class="text-center">
+                        <small class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Book Us</small>
+                        <h1 class="display-5 mb-5">Where you want Our Services</h1>
+                    </div>
+                    <form asp-action="CreateContact">
+                        <div class="row g-4 form">
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="Country" class="form-control" placeholder="Country" />
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="City" class="form-control" placeholder="City" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <select asp-for="VegetarianFriendly" class="form-control">
+                                    <option selected>Vegetarian</option>
+                                    <option value="1">Vegetarian</option>
+                                    <option value="2">Non Vegetarian</option>
+                                </select>
+                                <span asp-validation-for="VegetarianFriendly" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="Email" class="form-control" placeholder="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="Phone" class="form-control" placeholder="Phone" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-6">
+                                <input asp-for="DateAdded" class="form-control" placeholder="Date Added" />
+                                <span asp-validation-for="DateAdded" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea asp-for="DescriptionText" class="form-control form-control-lg" rows="3" placeholder="Description"></textarea>
+                                <span asp-validation-for="DescriptionText" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-12 text-center">
+                                <input type="submit" value="Submit" class="btn btn-primary px-5 py-3 rounded-pill" />
+                            </div>
+                        </div>
+                    </form>
+
+@*                         <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">Submit Now</button>
+                        </div>
+ *@                    
+                </div>
+            </div>
+            <div class="col-1">
+                <img src="~/HomeAssets/img/background-site.jpg" class="img-fluid h-100 w-100 rounded-end" style="object-fit: cover; opacity: 0.7;" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Us End -->
+<!-- Testimonial Start -->
+<div class="container-fluid py-6">
+    <div class="container">
+        <div class="text-center wow bounceInUp" data-wow-delay="0.1s">
+            @{
+                if (!(User?.Identity?.IsAuthenticated ?? false))
+                {
+                    <small title="You are NOT registered yet." class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Add Testimonial</small>
+                }
+                if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    <small><a asp-controller="Testimonials" asp-action="Create" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Add Testimonial</a></small>
+                }
+            }
+            <h1 class="display-5 mb-5">What Our Customers say!</h1>
+        </div>
+        <div class="owl-carousel owl-theme testimonial-carousel testimonial-carousel-1 mb-4 wow bounceInUp" data-wow-delay="0.1s">
+            @{
+                var testimonialInfo = ViewBag.TestimonialInfo as List<Testimonial>; // Cast ViewBag.TestimonialInfo to the appropriate type
+                if (testimonialInfo != null)
+                {
+                    foreach (var item in testimonialInfo)
+                    {
+                        if (item.Isapproved == 1)
+                        {
+                            <div class="testimonial-item rounded bg-light">
+                                <div class="d-flex mb-3">
+                                    <img src="/HomeAssets/img/@item.Customer?.ImagePath" class="img-fluid rounded-circle flex-shrink-0" alt="">
+                                    <div class="position-absolute" style="top: 15px; right: 20px;">
+                                        <i class="fa fa-quote-right fa-2x"></i>
+                                    </div>
+                                    <div class="ps-3 my-auto">
+                                        <h4 class="mb-0">@item.Customer?.FirstName @item.Customer?.LastName</h4>
+                                        <p class="m-0">@item.TestimonialDate</p>
+                                    </div>
+                                </div>
+                                <div class="testimonial-content">
+                                    <div class="d-flex">
+                                        @{
+                                            decimal? rating = item.Rating;
+                                        }
+                                        @for (int i = 0; i < rating; i++)
+                                        {
+                                            <i class="fas fa-star text-primary"></i>
+                                        }
+                                    </div>
+                                    <p class="fs-5 m-0 pt-3">@item.TestimonialText</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+

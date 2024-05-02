@@ -1,0 +1,71 @@
+﻿@model She___He_Store.Models.ContactU
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label asp-for="Country" class="control-label"></label>
+                            <input asp-for="Country" class="form-control" />
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="City" class="control-label"></label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label asp-for="VegetarianFriendly" class="control-label">Vegetarian?</label>
+                            <input asp-for="VegetarianFriendly" class="form-control" />
+                            <span asp-validation-for="VegetarianFriendly" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="DateAdded" class="control-label">Date</label>
+                            <input asp-for="DateAdded" class="form-control" />
+                            <span asp-validation-for="DateAdded" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+
+            <div class="form-group">
+                        <label asp-for="DescriptionText" class="control-label">Description</label>
+                        <textarea asp-for="DescriptionText" class="form-control form-control-lg" rows="4" placeholder="Description"></textarea>
+                <span asp-validation-for="DescriptionText" class="text-danger"></span>
+            </div>
+                                <br/>
+                    <br />
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"+/>
+            </div>
+        </form>
+    </div>
+</div>
+    </div>
+</div>

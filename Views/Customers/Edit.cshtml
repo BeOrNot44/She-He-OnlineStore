@@ -1,0 +1,68 @@
+﻿@model She___He_Store.Models.Customer
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+                                <div class="form-group row">
+                        <div class="col-md-6">
+                            <label asp-for="FirstName" class="control-label">First Name</label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="LastName" class="control-label">Last Name</label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label asp-for="ImageFile" class="control-label">Image</label>
+                            <input asp-for="ImageFile" accept="Image/*" class="form-control" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="RegistrationDate" class="control-label">Date</label>
+                            <input asp-for="RegistrationDate" class="form-control" />
+                            <span asp-validation-for="RegistrationDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br />
+                    <br />
+                    <br />
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-danger"/>
+            </div>
+
+        </form>
+    </div>
+</div>
+    </div>
+</div>

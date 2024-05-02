@@ -1,0 +1,52 @@
+﻿@model IEnumerable<She___He_Store.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="table-responsive">
+                    <table class="table">
+                        <a asp-action="Create"><button class="btn btn-danger w-80 m-2" type="button">Creat New</button></a>
+
+                        <thead>
+                            <tr>
+                                <th class="text-center align-middle">Name</th>
+                                <th class="text-center align-middle">Image</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center align-middle">
+                                        @Html.DisplayFor(modelItem => item.CategoryName)
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <img src=@Url.Content("~/HomeAssets/img/" + item.ImagePath) asp-append-version="true" width="150" height="100" class="rounded-circle" />
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <div class="btn-group d-flex justify-content-end" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                                            <form asp-action="Delete" asp-controller="Categories"  method="post" class="btn btn-outline-primary">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button type="submit" style="background: none; border: none">Delete</button>
+                                            </form>
+
+@*                                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary">Delete</a>
+ *@                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

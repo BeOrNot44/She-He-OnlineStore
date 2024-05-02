@@ -1,0 +1,225 @@
+﻿@model She___He_Store.Models.Review
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<style>
+    .icon-hover:hover {
+        border-color: #3b71ca !important;
+        background-color: white !important;
+        color: #3b71ca !important;
+    }
+
+        .icon-hover:hover i {
+            color: #3b71ca !important;
+        }
+
+    .link-muted {
+        color: #aaa;
+    }
+
+        .link-muted:hover {
+            color: #1266f1;
+        }
+</style>
+
+<!-- content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <aside class="col-lg-6">
+                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                    <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp">
+                        <img src="@Url.Content("~/HomeAssets/img/" + @Model.Product?.ImagePath)" asp-append-version="true" style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" />
+
+                    </a>
+                </div>
+                <!-- thumbs-wrap.// -->
+                <!-- gallery-wrap .end// -->
+            </aside>
+
+            <main class="col-lg-6">
+                <div class="ps-lg-3">
+                    <h4 class="title text-dark">
+                        @Model.Product?.Name
+
+                    </h4>
+                    <div class="d-flex flex-row my-3">
+                        <div class="text-warning mb-1 me-2">
+                            @{
+                                decimal? rating = ViewBag.AverageRating;
+                            }
+                            @for (int j = 0; j < rating; j++)
+                            {
+                                <i class="fas fa-star text-primary"></i>
+                            }
+                            <span class="ms-1">
+                                ViewBag.AverageRating
+                            </span>
+                        </div>
+                        <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>@Model.Product?.StockQuantity orders</span>
+                        <span class="text-success ms-2">In stock</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="h5">$@Model.Product?.Price</span>
+                        <span class="text-muted">/per box</span>
+                    </div>
+
+                    <p>
+                        @Model.Product?.Description
+                    </p>
+
+                    <div class="row">
+                        <dt class="col-3">Sale:</dt>
+                        <dd class="col-9">%@Model.Product?.SalePrice</dd>
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-4">
+                        <div class="col-md-4 col-6">
+                            <a href="#reviewcomment" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> See Reviews </a>
+                        </div>
+                        <!-- col.// -->
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="input-group mb-3" style="width: 170px;">
+                                <a asp-action="CreatReview" asp-controller="Home" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Add Review </a>
+                            </div>
+                        </div>
+                        <a asp-action="Menu" asp-controller="Home" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i class="me-1 fa fa-heart fa-lg"></i> Menu </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+<!-- content -->
+
+
+
+<section style="background-color: #ad655f;">
+    <div class="container my-5 py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="card text-dark">
+                    <div class="card-body p-4">
+                        <h4 class="mb-0">Recent comments</h4>
+                        <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
+
+                        <div class="d-flex flex-start">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+                                 height="60" />
+                            <div>
+                                <h6 class="fw-bold mb-1">Maggie Marsh</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <p class="mb-0">
+                                        March 07, 2021
+                                        <span class="badge bg-primary">Pending</span>
+                                    </p>
+                                    <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                                    <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+                                    <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                                </div>
+                                <p class="mb-0">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                                    industry. Lorem Ipsum has been the industry's standard dummy text ever
+                                    since the 1500s, when an unknown printer took a galley of type and
+                                    scrambled it.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-0" />
+
+                    <div class="card-body p-4">
+                        <div class="d-flex flex-start">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp" alt="avatar" width="60"
+                                 height="60" />
+                            <div>
+                                <h6 class="fw-bold mb-1">Lara Stewart</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <p class="mb-0">
+                                        March 15, 2021
+                                        <span class="badge bg-success">Approved</span>
+                                    </p>
+                                    <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                                    <a href="#!" class="text-success"><i class="fas fa-redo-alt ms-2"></i></a>
+                                    <a href="#!" class="link-danger"><i class="fas fa-heart ms-2"></i></a>
+                                </div>
+                                <p class="mb-0">
+                                    Contrary to popular belief, Lorem Ipsum is not simply random text. It
+                                    has roots in a piece of classical Latin literature from 45 BC, making it
+                                    over 2000 years old. Richard McClintock, a Latin professor at
+                                    Hampden-Sydney College in Virginia, looked up one of the more obscure
+                                    Latin words, consectetur, from a Lorem Ipsum passage, and going through
+                                    the cites.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-0" style="height: 1px;" />
+
+                    <div class="card-body p-4">
+                        <div class="d-flex flex-start">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(33).webp" alt="avatar" width="60"
+                                 height="60" />
+                            <div>
+                                <h6 class="fw-bold mb-1">Alexa Bennett</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <p class="mb-0">
+                                        March 24, 2021
+                                        <span class="badge bg-danger">Rejected</span>
+                                    </p>
+                                    <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                                    <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+                                    <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                                </div>
+                                <p class="mb-0">
+                                    There are many variations of passages of Lorem Ipsum available, but the
+                                    majority have suffered alteration in some form, by injected humour, or
+                                    randomised words which don't look even slightly believable. If you are
+                                    going to use a passage of Lorem Ipsum, you need to be sure.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-0" />
+
+                    <div class="card-body p-4">
+                        <div class="d-flex flex-start">
+                            <img class="rounded-circle shadow-1-strong me-3"
+                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(24).webp" alt="avatar" width="60"
+                                 height="60" />
+                            <div>
+                                <h6 class="fw-bold mb-1">Betty Walker</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <p class="mb-0">
+                                        March 30, 2021
+                                        <span class="badge bg-primary">Pending</span>
+                                    </p>
+                                    <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                                    <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+                                    <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                                </div>
+                                <p class="mb-0">
+                                    It uses a dictionary of over 200 Latin words, combined with a handful of
+                                    model sentence structures, to generate Lorem Ipsum which looks
+                                    reasonable. The generated Lorem Ipsum is therefore always free from
+                                    repetition, injected humour, or non-characteristic words etc.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

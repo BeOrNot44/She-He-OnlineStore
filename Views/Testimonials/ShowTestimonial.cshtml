@@ -1,0 +1,61 @@
+﻿@model IEnumerable<She___He_Store.Models.Testimonial>
+
+@{
+    ViewData["Title"] = "ShowTestimonial";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!-- Testimonial Start -->
+<div class="container-fluid py-6">
+    <div class="container">
+        <div class="text-center wow bounceInUp" data-wow-delay="0.1s">
+            @{
+                if (!(User?.Identity?.IsAuthenticated ?? false))
+                {
+                    <small title="You are NOT registerd yet." class="d-inline-block fw-bold text-dark text-uppercase bg-light border border-primary rounded-pill px-4 py-1 mb-3">Add Testimonial</small>
+                }
+                if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    <small><a asp-controller="Testimonials" asp-action="Create" class="btn btn-primary py-2 px-4 d-none d-xl-inline-block rounded-pill">Add Testimonial</a></small>
+                }
+            }
+            <h1 class="display-5 mb-5">What Our Customers says!</h1>
+        </div>
+        <div class="owl-carousel owl-theme testimonial-carousel testimonial-carousel-1 mb-4 wow bounceInUp" data-wow-delay="0.1s">
+            @{
+                foreach (var item in Model)
+                {
+                    if (@item.Isapproved == 1)
+                    {
+                        <div class="testimonial-item rounded bg-light">
+                            <div class="d-flex mb-3">
+                                <img src="/HomeAssets/img/@item.Customer?.ImagePath" class="img-fluid rounded-circle flex-shrink-0" alt="">
+                                <div class="position-absolute" style="top: 15px; right: 20px;">
+                                    <i class="fa fa-quote-right fa-2x"></i>
+
+                                </div>
+                                <div class="ps-3 my-auto">
+                                    <h4 class="mb-0">@item.Customer?.FirstName @item.Customer?.LastName</h4>
+                                    <p class="m-0">@item.TestimonialDate</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="d-flex">
+                                    @{
+                                        decimal? rating = @item.Rating;
+                                    }
+                                    @for (int i = 0; i < rating; i++)
+                                    {
+                                        <i class="fas fa-star text-primary"></i>
+                                    }
+                                </div>
+                                <p class="fs-5 m-0 pt-3">@item.TestimonialText</p>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
