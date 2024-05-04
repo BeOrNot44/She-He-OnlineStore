@@ -2,7 +2,7 @@
 
 Welcome to She & He E-Commerce platform, your virtual restaurant experience! Explore a diverse menu of culinary delights with ease.
 
-##Video(All interactive elements in video are functioning)
+### Video(All interactive elements in video are functioning)
 
 
 ## Features
