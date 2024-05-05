@@ -4,6 +4,7 @@ Welcome to She & He E-Commerce platform, your virtual restaurant experience! Exp
 
 ### Video(All interactive elements in video are functioning)
 
+**Note:** Video will be added later on
 
 ## Features
 
