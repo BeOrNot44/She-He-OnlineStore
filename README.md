@@ -1,6 +1,6 @@
 # She & He OnlineStore
 
-Welcome to She & He E-Commerce platform, your virtual restaurant experience! Explore a diverse menu of culinary delights with ease.
+Welcome to She & He E-Commerce, where innovation meets convenience! The platform is powered by .NET Core MVC and seamlessly integrated with Oracle's robust database technology. 
 
 ### Video(All interactive elements in video are functioning)
 
